@@ -25,6 +25,11 @@ public class Main implements Runnable
 	public Bot JavaBot;
 	public Main() {
 	}
+    /**
+     * constructor for the program
+     * @param args
+     * @throws java.io.IOException
+     */
 	public Main(String args[]) {
 	
         try {
@@ -40,17 +45,17 @@ public class Main implements Runnable
 			//channel = args[2];
 			
             //our socket we're connected with
-            irc = new Socket( server, port );
+            irc = new Socket(server, port);
             //out output stream
-			bw = new BufferedWriter( new OutputStreamWriter( irc.getOutputStream() ) );
+			bw = new BufferedWriter(new OutputStreamWriter(irc.getOutputStream()));
             //our input stream
-            br = new BufferedReader( new InputStreamReader( irc.getInputStream() ) );
+            br = new BufferedReader(new InputStreamReader(irc.getInputStream()));
             
             //create a new instance of the JavaBot
-            JavaBot = new Bot( bw, channel);
+            JavaBot = new Bot(bw, channel);
 
             //authenticate the JavaBot with the server
-            JavaBot.login( nick, address );
+            JavaBot.login(nick, address);
             
 			Thread t = new Thread(this);
 			t.start();
@@ -63,15 +68,20 @@ public class Main implements Runnable
 			//while (true)
 			//System.out.println("test");
 			
-        } catch ( UnknownHostException e ) {
-            System.err.println( "No such host" );
-            log.log( "No such host" );
-        } catch ( IOException e ) {
-            System.err.println( "There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot." );
-            log.log( "There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot." );
+        } catch (UnknownHostException e) {
+            System.err.println("No such host");
+            log.log("No such host");
+        } catch (IOException e) {
+            System.err.println("There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot.");
+            log.log("There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot.");
         } 
 	}
-    public static void main( String[] args ) throws IOException
+    /**
+     * main method of the program
+     * @param args
+     * @throws java.io.IOException
+     */
+    public static void main(String[] args) throws IOException
     { 
 		//Pass main the paramater args, we can't use the default construtor because the 
 		//Parser class needs the default construtor because parser calls it when
@@ -96,12 +106,12 @@ public class Main implements Runnable
 				//and also it can't be static or it won't work for some reason.
 				par.parseText(currLine, JavaBot);
 			}
-		} catch ( UnknownHostException e ) {
-            System.err.println( "No such host" );
-            log.log( "No such host" );
-        } catch ( IOException e ) {
-            System.err.println( "There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot." );
-            log.log( "There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot." );
+		} catch (UnknownHostException e) {
+            System.err.println("No such host");
+            log.log("No such host");
+        } catch (IOException e) {
+            System.err.println("There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot.");
+            log.log("There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot.");
         } 
 	}
 }

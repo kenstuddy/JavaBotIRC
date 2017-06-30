@@ -12,6 +12,12 @@ import java.util.Random;
 public class Parser extends Main 
 {
 	Logger log = new Logger();
+    /**
+     * Class method for parsing text
+     * @param currLine
+     * @param JavaBot
+     * @throws java.io.IOException
+     */
 	public void parseText(String currLine, Bot JavaBot)
 	{
 		try {
@@ -22,14 +28,14 @@ public class Parser extends Main
             //but since token[3] will always be the same for the same command (e.g. !join), regex should be used instead for it
 			//whereas token[4] can be different any time for the same exact command so all commands should use token[4]
 			//without using regex.
-			String[] token = currLine.split( " " );
+			String[] token = currLine.split(" ");
             //compile a regex to check and see if the person calling commands is the owner
 			//ownership can just be used the the myuser variable, but ownership works fine like this ATM, it can be changed fairly easily to the second wy
 			//in the future, if needbe.
 			//This code and the logic behind it (for the !op and !deop etc) should work in C# with a bit of tweaking, 
 			//like for example instead of onwership.find() it should be if (nickn == "ken"), etc.
-            Pattern checkOwner = Pattern.compile( "^:"+owner, Pattern.CASE_INSENSITIVE );
-            Matcher ownership = checkOwner.matcher( currLine );
+            Pattern checkOwner = Pattern.compile("^:"+owner, Pattern.CASE_INSENSITIVE);
+            Matcher ownership = checkOwner.matcher(currLine);
             String myuser = "";
 			String p4 = "";
 			if (token[0].startsWith(":") && token[0].indexOf("!") > 0 && token[0].indexOf("@") > 0 && token.length > 2) {
@@ -40,9 +46,9 @@ public class Parser extends Main
 				p4 = token[4];
 			}
             //constantly check for PING's, if the bot sees one, it replies with a PONG
-            Pattern pingRegex = Pattern.compile( "^PING", Pattern.CASE_INSENSITIVE );
-            Matcher ping = pingRegex.matcher( currLine );
-            if( ping.find() )
+            Pattern pingRegex = Pattern.compile("^PING", Pattern.CASE_INSENSITIVE);
+            Matcher ping = pingRegex.matcher(currLine);
+            if(ping.find())
             {
                 JavaBot.pong();
             }
@@ -158,14 +164,14 @@ public class Parser extends Main
 					JavaBot.say( "I'm going to go over to " + token[4] + " and see what they're up to over there. Cya." );
 					JavaBot.part();
 					channel = token[4];
-					JavaBot.join( channel );
-					JavaBot.say( "Hey guys!" );
+					JavaBot.join(channel);
+					JavaBot.say("Hey guys!" );
 				}
 					
 				//we should be polite every now and then, this introduces the bot
 				if( currLine.contains("!sayhi") && ownership.find() )
 				{
-					JavaBot.say( "Hi, I'm JavaBot!" );
+					JavaBot.say("Hi, I'm JavaBot!");
 				}
 				if (currLine.contains("!sup"))
 				{
@@ -193,7 +199,7 @@ public class Parser extends Main
 				{
 					Date d = new Date();
 					String message = "The date is " + d ;
-					JavaBot.say( message );
+					JavaBot.say(message);
 				}
 		    }
 			else
@@ -204,8 +210,8 @@ public class Parser extends Main
 		}
 		catch (IOException e)
 		{
-			System.err.println( "There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot." );
-			log.log( "There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot." );
+			System.err.println("There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot.");
+			log.log("There was an error connecting to the host. Is the IRCD server running on this host? If you are running on localhost/127.0.0.1, then make sure the IRCD server is running before you start the bot.");
 		}	
 	}
 }

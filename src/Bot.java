@@ -17,14 +17,14 @@ public class Bot
      * @param chan
      * @param own
      */
-    Bot(BufferedWriter writer, String chan )
+    Bot(BufferedWriter writer, String chan)
     {
         bw = writer;
         channel = chan;
     }
     
     /**
-     * This is the main part of the bot, it replies to PING's
+     * Class method, this is the main part of the bot, it replies to PING's
      * @throws java.io.IOException
      */
     public void pong() throws IOException
@@ -35,13 +35,13 @@ public class Bot
     }
     
     /**
-     * General purpose method for inputting into the channel at hand
+     * General purpose class method for inputting into the channel at hand
      * @param message
      * @throws java.io.IOException
      */
-	 //to make this like the C# version, just add String channel, in front of String message to make it multichannel,
-	 //even though this isn't necessary this can be done if wanted
-    public void say( String message ) throws IOException
+	//to make this like the C# version, just add String channel, in front of String message to make it multichannel,
+	//even though this isn't necessary this can be done if wanted
+    public void say(String message) throws IOException
     {
         bw.write("PRIVMSG " + channel + " :" + message + "\n");
 		log.log("PRIVMSG " + channel + " :" + message);
@@ -56,11 +56,11 @@ public class Bot
 		System.out.println("NOTICE " + channel + " :" + message);
 	}
     /**
-     * Joins a specified IRC channel and sets this.channel accordingly
+     * Class method, Joins a specified IRC channel and sets this.channel accordingly
      * @param channel
      * @throws java.io.IOException
      */
-    public void join( String chan ) throws IOException
+    public void join(String chan) throws IOException
     {
 		if (!chan.contains("#"))
 		{
@@ -94,7 +94,7 @@ public class Bot
      */
     public void quit() throws IOException
     {
-        bw.write( "QUIT " + channel + "\n" );
+        bw.write("QUIT " + channel + "\n");
         bw.flush();
 		System.out.println("QUIT " + channel);
 		log.log("QUIT " + channel);
@@ -106,7 +106,7 @@ public class Bot
      * @param address
      * @throws java.io.IOException
      */
-    public void login( String nick, String address ) throws IOException
+    public void login(String nick, String address) throws IOException
     {
         bw.write("NICK " + nick + "\n");
         bw.write("USER " + nick + " " + address + ": Java Bot\n");
@@ -127,15 +127,20 @@ public class Bot
     }
     
     /**
-     * General method for yelling at users, might not need to use it after all
+     * Class method for yelling at users, might not need to use it after all
      * @param message
      * @throws java.io.IOException
      */
-    public void yell( String message ) throws IOException
+    public void yell(String message) throws IOException
     {
-        say( message );
+        say(message);
     }
-    public void action( String message) throws IOException
+    /**
+     * Class method for actions
+     * @param message
+     * @throws java.io.IOException
+     */
+    public void action(String message) throws IOException
 	{
 	
 		bw.write("PRIVMSG " + channel + " \u0001ACTION " + message + "\u0001" + "\n");
@@ -144,7 +149,9 @@ public class Bot
 		log.log("PRIVMSG " + channel + " \u0001ACTION " + message + "\u0001" + "\n");
 	}
     /**
-     * i like modes
+     * Class method for changing mode.
+     * @param user
+     * @param mode
      * @throws java.io.IOException
      */
 	public void mode(String user, String mode) throws IOException
@@ -157,6 +164,6 @@ public class Bot
 	}
     public void wiki() throws IOException
     {
-        say( "Sorry folks, but that feature isn't working just yet." );
+        say("Sorry folks, but that feature isn't working just yet.");
     }
 }

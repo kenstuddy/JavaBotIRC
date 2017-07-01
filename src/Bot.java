@@ -18,7 +18,7 @@ public class Bot
      * @param own
      */
     Bot(BufferedWriter writer, String chan)
-    {
+    {   
         bw = writer;
         channel = chan;
     }

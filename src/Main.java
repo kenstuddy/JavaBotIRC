@@ -15,7 +15,7 @@ public class Main implements Runnable
     static String owner = "ken";
     static String server = "irc.swiftirc.net";
     static String nick = "JavabotLOL";
-    static String address = "wat";
+    static String address = "test";
     static String channel = "#test";
     static int port = 6667;
     Logger log = new Logger();
@@ -34,15 +34,6 @@ public class Main implements Runnable
 
         try {
 
-            //server = "irc.swiftirc.net";
-            //nick = "javabotlol";
-            //address = "wat";
-            //channel = "#test";
-
-            //server = args[0];
-            //nick = args[1];
-            //address = "wat";
-            //channel = args[2];
 
             //our socket we're connected with
             irc = new Socket(server, port);

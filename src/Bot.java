@@ -24,14 +24,24 @@ public class Bot
     }
 
     /**
+     * Class method, this is used for sending messages
+     * @throws java.io.IOException
+     */
+    public void sendMessage(String message) throws IOException
+    {
+        bw.write(message);
+        log.log(message);
+        System.out.println(message);
+        bw.flush();
+    }
+    
+    /**
      * Class method, this is the main part of the bot, it replies to PING's
      * @throws java.io.IOException
      */
     public void pong() throws IOException
     {
-        bw.write("PONG " + channel + "\n");
-        bw.flush();
-        System.out.println("PONG " + channel);
+        sendMessage("PONG " + channel + "\n");
     }
 
     /**
@@ -43,17 +53,11 @@ public class Bot
     //even though this isn't necessary this can be done if wanted
     public void say(String message) throws IOException
     {
-        bw.write("PRIVMSG " + channel + " :" + message + "\n");
-        log.log("PRIVMSG " + channel + " :" + message);
-        bw.flush();
-        System.out.println("PRIVMSG " + channel + " :" + message);
+        sendMessage("PRIVMSG " + channel + " :" + message + "\n");
     }
     public void notice(String channel, String message) throws IOException
     {
-        bw.write("NOTICE " + channel + " :" + message + "\n");
-        log.log("NOTICE " + channel + " :" + message + "\n");
-        bw.flush();
-        System.out.println("NOTICE " + channel + " :" + message);
+        sendMessage("NOTICE " + channel + " :" + message + "\n");
     }
     /**
      * Class method, Joins a specified IRC channel and sets this.channel accordingly
@@ -66,10 +70,7 @@ public class Bot
         {
             chan = "#" + chan;
         }
-        bw.write("JOIN " + chan + "\n");
-        bw.flush();
-        System.out.println("JOIN " + chan);
-        log.log("JOIN " + chan);
+        sendMessage("JOIN " + chan + "\n");
         //we're doing this so that there's no confusion
         //as to which channel the bot is in
         channel = chan;
@@ -81,10 +82,7 @@ public class Bot
      */
     public void part() throws IOException
     {
-        bw.write("PART " + channel + "\n");
-        bw.flush();
-        System.out.println("PART " + channel);
-        log.log("PART " + channel);
+        sendMessage("PART " + channel + "\n");
     }
 
     /**
@@ -94,10 +92,7 @@ public class Bot
      */
     public void quit() throws IOException
     {
-        bw.write("QUIT " + channel + "\n");
-        bw.flush();
-        System.out.println("QUIT " + channel);
-        log.log("QUIT " + channel);
+        sendMessage("QUIT " + channel + "\n");
     }
 
     /**
@@ -108,22 +103,9 @@ public class Bot
      */
     public void login(String nick, String address) throws IOException
     {
-        bw.write("NICK " + nick + "\n");
-        bw.write("USER " + nick + " " + address + ": Java Bot\n");
-        bw.write("JOIN " + channel + "\n");
-        bw.write("PRIVMSG NICKSERV :id mypass\n");
-        bw.write("MODE " + Main.nick + " :+B\n");
-        bw.flush();
-        System.out.println("NICK " + nick);
-        log.log("NICK " + nick);
-        System.out.println("USER " + nick + " " + address + ": Java Bot");
-        log.log("USER " + nick + " " + address + ": Java Bot");
-        System.out.println("PRIVMSG NICKSERV : id mypass ");
-        log.log("PRIVMSG NICKSERV : id mypass ");
-        System.out.println( "JOIN " + channel);
-        log.log("JOIN " + channel);
-        log.log("MODE " + Main.nick + " :+B\n");
-        System.out.println("MODE " + Main.nick + " :+B\n");
+        sendMessage("NICK " + nick + "\n");
+        sendMessage("USER " + nick + " " + address + ": Java Bot\n");
+        sendMessage("JOIN " + channel + "\n");
     }
 
     /**
@@ -143,10 +125,7 @@ public class Bot
     public void action(String message) throws IOException
     {
 
-        bw.write("PRIVMSG " + channel + " \u0001ACTION " + message + "\u0001" + "\n");
-        bw.flush();
-        System.out.println("PRIVMSG " + channel + " \u0001ACTION " + message + "\u0001" + "\n");
-        log.log("PRIVMSG " + channel + " \u0001ACTION " + message + "\u0001" + "\n");
+        sendMessage("PRIVMSG " + channel + " \u0001ACTION " + message + "\u0001" + "\n");
     }
     /**
      * Class method for changing mode.
@@ -157,10 +136,7 @@ public class Bot
     public void mode(String user, String mode) throws IOException
     {
 
-        bw.write("MODE " + channel + " " + mode + " " + user + "\n");
-        System.out.println("MODE " + channel + " " + mode + " " + user);
-        log.log("MODE " + channel + " " + mode + " " + user);
-        bw.flush();
+        sendMessage("MODE " + channel + " " + mode + " " + user + "\n");
     }
     public void wiki() throws IOException
     {

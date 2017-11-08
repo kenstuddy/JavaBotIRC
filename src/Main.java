@@ -14,7 +14,7 @@ public class Main implements Runnable
 {
     static String owner = "ken";
     static String server = "irc.swiftirc.net";
-    static String nick = "JavabotLOL";
+    static String nick = "JavabotIRC";
     static String address = "test";
     static String channel = "#test";
     static int port = 6667;
